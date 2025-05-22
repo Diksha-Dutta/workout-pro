@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our Product Range - WorkoutPro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" />
+</head>
+<body class="bg-base-200 text-base-content min-h-screen">
+
+  <nav class="navbar bg-base-100 shadow-md px-4">
+    <div class="flex justify-between items-center w-full mx-auto">
+      <a class="btn btn-ghost normal-case text-2xl">WorkoutPro</a>
+      <div class="space-x-2">
+        <a href="cart.html" id="cart-btn" class="btn btn-outline btn-secondary">
+          🛒 Cart <span id="cart-count" class="badge badge-secondary ml-2">0</span>
+        </a>
+        <a href="orders.html" id="order-btn" class="btn btn-outline btn-info">Orders</a>
+        <a href="dashboard.html" class="btn btn-outline btn-primary">Back to Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="p-8 max-w-7xl mx-auto">
+    <h1 class="text-4xl font-bold text-center mb-10">Explore Our Product Range</h1>
+
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 text-center">Apparels 👕</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="card bg-base-100 shadow-lg">
+          <div class="card-body items-center flex justify-center">
+            <h3 class="card-title">Performance T-Shirt</h3>
+            <p>Breathable, sweat-wicking material perfect for intense workouts.</p>
+            <label class="w-full mb-3">
+              <span class="block font-medium mb-1">Size</span>
+              <select class="w-full border border-gray-300 rounded px-3 py-2" data-option-type="size">
+                <option value="S">S</option>
+                <option value="M" selected>M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+              </select>
+            </label>
+            <label class="w-full mb-3">
+              <span class="block font-medium mb-1">Color</span>
+              <select class="w-full border border-gray-300 rounded px-3 py-2" data-option-type="color">
+                <option value="Black">Black</option>
+                <option value="Navy" selected>Navy</option>
+                <option value="Red">Red</option>
+              </select>
+            </label>
+            <p><strong>Price:</strong> ₹799</p>
+            <div class="payment flex justify-between text-sm mt-4 space-x-2">
+              <button class="btn btn-outline btn-primary w-1/2 add-to-cart">Add to cart</button>
+              <a href="buy.html" class="btn btn-outline btn-primary w-1/2">Buy</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-lg">
+          <div class="card-body items-center flex justify-center">
+            <h3 class="card-title">Workout Leggings</h3>
+            <p>High-waisted stretch leggings with tummy control.</p>
+            <label class="w-full mb-3">
+              <span class="block font-medium mb-1">Size</span>
+              <select class="w-full border border-gray-300 rounded px-3 py-2" data-option-type="size">
+                <option value="XS">XS</option>
+                <option value="S" selected>S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+              </select>
+            </label>
+            <label class="w-full mb-3">
+              <span class="block font-medium mb-1">Color</span>
+              <select class="w-full border border-gray-300 rounded px-3 py-2" data-option-type="color">
+                <option value="Charcoal">Charcoal</option>
+                <option value="Blue" selected>Blue</option>
+                <option value="Pink">Pink</option>
+              </select>
+            </label>
+            <p><strong>Price:</strong> ₹999</p>
+            <div class="payment flex justify-between text-sm mt-4 space-x-2">
+              <button class="btn btn-outline btn-primary w-1/2 add-to-cart">Add to cart</button>
+              <a href="buy.html" class="btn btn-outline btn-primary w-1/2">Buy</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-lg">
+          <div class="card-body items-center flex justify-center">
+            <h3 class="card-title">Sleeveless Gym Hoodie</h3>
+            <p>Lightweight and stylish hoodie perfect for layering during workouts.</p>
+            <label class="w-full mb-3">
+              <span class="block font-medium mb-1">Size</span>
+              <select class="w-full border border-gray-300 rounded px-3 py-2" data-option-type="size">
+                <option value="M">M</option>
+                <option value="L" selected>L</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>
+              </select>
+            </label>
+            <label class="w-full mb-3">
+              <span class="block font-medium mb-1">Color</span>
+              <select class="w-full border border-gray-300 rounded px-3 py-2" data-option-type="color">
+                <option value="Black">Black</option>
+                <option value="Olive Green" selected>Olive Green</option>
+                <option value="Grey">Grey</option>
+              </select>
+            </label>
+            <p><strong>Price:</strong> ₹899</p>
+            <div class="payment flex justify-between text-sm mt-4 space-x-2">
+              <button class="btn btn-outline btn-primary w-1/2 add-to-cart">Add to cart</button>
+              <a href="buy.html" class="btn btn-outline btn-primary w-1/2">Buy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 text-center">Supplements 💊</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="card bg-base-100 shadow-lg">
+          <div class="card-body items-center flex justify-center">
+            <h3 class="card-title">Whey Protein (1kg)</h3>
+            <p>Fast-absorbing protein to fuel muscle recovery post workouts.</p>
+            <label class="w-full mb-3">
+              <span class="block font-medium mb-1">Flavour</span>
+              <select class="w-full border border-gray-300 rounded px-3 py-2" data-option-type="flavour">
+                <option value="Chocolate">Chocolate</option>
+                <option value="Vanilla" selected>Vanilla</option>
+                <option value="Strawberry">Strawberry</option>
+              </select>
+            </label>
+            <p><strong>Price:</strong> ₹1,499</p>
+            <div class="payment flex justify-between text-sm mt-4 space-x-2">
+              <button class="btn btn-outline btn-primary w-1/2 add-to-cart">Add to cart</button>
+              <a href="buy.html" class="btn btn-outline btn-primary w-1/2">Buy</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-lg">
+          <div class="card-body items-center flex justify-center">
+            <h3 class="card-title">Multivitamin Tablets (60 caps)</h3>
+            <p>Daily nutrition support with essential vitamins and minerals.</p>
+            <p><strong>Serving:</strong> 1 per day</p>
+            <p><strong>Price:</strong> ₹499</p>
+            <div class="payment flex justify-between text-sm mt-4 space-x-2">
+              <button class="btn btn-outline btn-primary w-1/2 add-to-cart">Add to cart</button>
+              <a href="buy.html" class="btn btn-outline btn-primary w-1/2">Buy</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-lg">
+          <div class="card-body items-center flex justify-center">
+            <h3 class="card-title">BCAA Powder (300g)</h3>
+            <p>Essential amino acids to reduce muscle fatigue and boost recovery.</p>
+            <label class="w-full mb-3">
+              <span class="block font-medium mb-1">Flavour</span>
+              <select class="w-full border border-gray-300 rounded px-3 py-2" data-option-type="flavour">
+                <option value="Orange">Orange</option>
+                <option value="Cola" selected>Cola</option>
+                <option value="Watermelon">Watermelon</option>
+              </select>
+            </label>
+            <p><strong>Price:</strong> ₹799</p>
+            <div class="payment flex justify-between text-sm mt-4 space-x-2">
+              <button class="btn btn-outline btn-primary w-1/2 add-to-cart">Add to cart</button>
+              <a href="buy.html" class="btn btn-outline btn-primary w-1/2">Buy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 text-center">Machines 🏋️‍♂️</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="card bg-base-100 shadow-lg">
+          <div class="card-body items-center flex justify-center">
+            <h3 class="card-title">Adjustable Dumbbell Set</h3>
+            <p>Weight range from 5kg to 25kg, suitable for all training levels.</p>
+            <p><strong>Material:</strong> Steel + Rubber coating</p>
+            <p><strong>Price:</strong> ₹3,499</p>
+            <div class="payment flex justify-between text-sm mt-4 space-x-2">
+              <button class="btn btn-outline btn-primary w-1/2 add-to-cart">Add to cart</button>
+              <a href="buy.html" class="btn btn-outline btn-primary w-1/2">Buy</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-lg">
+          <div class="card-body items-center flex justify-center">
+            <h3 class="card-title">Foldable Treadmill</h3>
+            <p>Space-saving treadmill with digital tracking and incline options.</p>
+            <p><strong>Speed:</strong> 1–12 km/h</p>
+            <p><strong>Price:</strong> ₹17,999</p>
+            <div class="payment flex justify-between text-sm mt-4 space-x-2">
+              <button class="btn btn-outline btn-primary w-1/2 add-to-cart">Add to cart</button>
+              <a href="buy.html" class="btn btn-outline btn-primary w-1/2">Buy</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-lg">
+          <div class="card-body items-center flex justify-center">
+            <h3 class="card-title">Adjustable Bench Press</h3>
+            <p>Multi-angle adjustable bench for full-body workouts and presses.</p>
+            <p><strong>Incline Levels:</strong> Flat, Incline, Decline</p>
+            <p><strong>Price:</strong> ₹5,499</p>
+            <div class="payment flex justify-between text-sm mt-4 space-x-2">
+              <button class="btn btn-outline btn-primary w-1/2 add-to-cart">Add to cart</button>
+              <a href="buy.html" class="btn btn-outline btn-primary w-1/2">Buy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 text-center">Recovery & Wellness 🧘‍♀️</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="card bg-base-100 shadow-lg">
+          <div class="card-body items-center flex justify-center">
+            <h3 class="card-title">Foam Roller</h3>
+            <p>Deep tissue massage for muscle recovery and flexibility.</p>
+            <label class="w-full mb-3">
+              <span class="block font-medium mb-1">Size</span>
+              <select class="w-full border border-gray-300 rounded px-3 py-2" data-option-type="size">
+                <option value="18">18</option>
+                <option value="24" selected>24</option>
+              </select>
+            </label>
+            <label class="w-full mb-3">
+              <span class="block font-medium mb-1">Color</span>
+              <select class="w-full border border-gray-300 rounded px-3 py-2" data-option-type="color">
+                <option value="Blue">Blue</option>
+                <option value="Grey" selected>Grey</option>
+              </select>
+            </label>
+            <p><strong>Price:</strong> ₹699</p>
+            <div class="payment flex justify-between text-sm mt-4 space-x-2">
+              <button class="btn btn-outline btn-primary w-1/2 add-to-cart">Add to cart</button>
+              <a href="buy.html" class="btn btn-outline btn-primary w-1/2">Buy</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-lg">
+          <div class="card-body items-center flex justify-center">
+            <h3 class="card-title">Sleep Support Gummies</h3>
+            <p>Melatonin-based gummies to improve rest and recovery.</p>
+            <label class="w-full mb-3">
+              <span class="block font-medium mb-1">Flavour</span>
+              <select class="w-full border border-gray-300 rounded px-3 py-2" data-option-type="flavour">
+                <option value="Mixed Berries">Mixed Berries</option>
+                <option value="Mango" selected>Mango</option>
+              </select>
+            </label>
+            <p><strong>Price:</strong> ₹399</p>
+            <div class="payment flex justify-between text-sm mt-4 space-x-2">
+              <button class="btn btn-outline btn-primary w-1/2 add-to-cart">Add to cart</button>
+              <a href="buy.html" class="btn btn-outline btn-primary w-1/2">Buy</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-lg">
+          <div class="card-body items-center flex justify-center">
+            <h3 class="card-title">Massage Gun Pro</h3>
+            <p>High-performance percussion massager with 5 speed settings.</p>
+            <p><strong>Heads:</strong> 6 interchangeable</p>
+            <p><strong>Price:</strong> ₹3,299</p>
+            <div class="payment flex justify-between text-sm mt-4 space-x-2">
+              <button class="btn btn-outline btn-primary w-1/2 add-to-cart">Add to cart</button>
+              <a href="buy.html" class="btn btn-outline btn-primary w-1/2">Buy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+  const cartButtons = document.querySelectorAll('.add-to-cart');
+  const buyButtons = document.querySelectorAll('.btn[href="buy.html"]');
+  const cartCount = document.getElementById('cart-count');
+
+  // Load cart from localStorage
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  // Update cart count
+  const updateCartCount = () => {
+    cartCount.textContent = cart.length;
+  };
+
+  // Add item to cart
+  cartButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.card');
+      const name = card.querySelector('.card-title').textContent;
+      const priceText = card.querySelector('p strong').nextSibling.textContent.replace('₹', '');
+      const sizeSelect = card.querySelector('select[data-option-type="size"]');
+      const colorSelect = card.querySelector('select[data-option-type="color"]');
+      const flavourSelect = card.querySelector('select[data-option-type="flavour"]');
+
+      const item = {
+        name,
+        price: parseFloat(priceText),
+        size: sizeSelect ? sizeSelect.value : null,
+        color: colorSelect ? colorSelect.value : null,
+        flavour: flavourSelect ? flavourSelect.value : null,
+      };
+
+      cart.push(item);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      alert('Item added to cart!');
+    });
+  });
+
+  // Handle Buy button
+  buyButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const card = button.closest('.card');
+      const name = card.querySelector('.card-title').textContent;
+      const priceText = card.querySelector('p strong').nextSibling.textContent.replace('₹', '');
+      const sizeSelect = card.querySelector('select[data-option-type="size"]');
+      const colorSelect = card.querySelector('select[data-option-type="color"]');
+      const flavourSelect = card.querySelector('select[data-option-type="flavour"]');
+
+      const params = new URLSearchParams({
+        name,
+        price: parseFloat(priceText),
+        size: sizeSelect ? sizeSelect.value : '',
+        color: colorSelect ? colorSelect.value : '',
+        flavour: flavourSelect ? flavourSelect.value : '',
+      });
+
+      window.location.href = `buy.html?${params.toString()}`;
+    });
+  });
+
+  // Initialize cart count
+  updateCartCount();
+});
+  </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Cart - WorkoutPro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" />
+</head>
+<body class="bg-base-200 text-base-content min-h-screen">
+  <nav class="navbar bg-base-100 shadow-md px-4">
+    <div class="flex justify-between items-center w-full mx-auto">
+      <a class="btn btn-ghost normal-case text-2xl" href="product-range.html">WorkoutPro</a>
+      <div class="space-x-2">
+        <a href="cart.html" class="btn btn-outline btn-secondary">
+          🛒 Cart <span id="cart-count" class="badge badge-secondary ml-2">0</span>
+        </a>
+        <a href="orders.html" class="btn btn-outline btn-info">Orders</a>
+        <a href="dashboard.html" class="btn btn-outline btn-primary">Back to Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="p-8 max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold text-center mb-10">Your Shopping Cart</h1>
+    <div class="card bg-base-100 shadow-lg p-6">
+      <ul id="cart-items" class="space-y-4"></ul>
+      <p class="mt-4 text-lg font-semibold">Total: ₹<span id="cart-total">0</span></p>
+      <div class="mt-6 flex justify-end gap-2">
+        <button id="clear-cart" class="btn btn-error">Clear Cart</button>
+        <a id="checkout-btn" class="btn btn-primary">Checkout</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+  const cartItemsList = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  const clearCartBtn = document.getElementById('clear-cart');
+  const checkoutBtn = document.getElementById('checkout-btn');
+  const cartCount = document.getElementById('cart-count');
+
+  // Load cart from localStorage
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  // Update cart display
+  const updateCart = () => {
+    cartItemsList.innerHTML = '';
+    let total = 0;
+    cart.forEach((item, index) => {
+      const li = document.createElement('li');
+      li.className = 'flex justify-between items-center';
+      let options = [];
+      if (item.size) options.push(`Size: ${item.size}`);
+      if (item.color) options.push(`Color: ${item.color}`);
+      if (item.flavour) options.push(`Flavour: ${item.flavour}`);
+      li.innerHTML = `
+        <span>${item.name} (${options.join(', ') || 'No options'}) - ₹${item.price}</span>
+        <button class="btn btn-error btn-sm remove-item" data-index="${index}">Remove</button>
+      `;
+      cartItemsList.appendChild(li);
+      total += parseFloat(item.price);
+    });
+    cartTotal.textContent = total.toFixed(2);
+    cartCount.textContent = cart.length;
+  };
+
+  // Remove item from cart
+  cartItemsList.addEventListener('click', (e) => {
+    if (e.target.classList.contains('remove-item')) {
+      const index = e.target.dataset.index;
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCart();
+    }
+  });
+
+  // Clear cart
+  clearCartBtn.addEventListener('click', () => {
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCart();
+  });
+
+  // Checkout
+  checkoutBtn.addEventListener('click', () => {
+    if (cart.length === 0) {
+      alert('Your cart is empty!');
+      return;
+    }
+    // Redirect to buy.html with a flag to indicate cart checkout
+    window.location.href = `buy.html?cartCheckout=true`;
+  });
+
+  // Initialize cart
+  updateCart();
+});
+  </script>
+</body>
+</html>

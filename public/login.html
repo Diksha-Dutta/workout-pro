@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - WorkoutPro</title>
+  <script defer src="login.js"></script>
+   <script defer src="app.js"></script>
+   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      plugins: [daisyui],
+      daisyui: {
+       themes: true 
+      }
+    }
+  </script>
+  
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet"/>
+</head>
+
+<body>
+  
+      <div class="flex-1 flex justify-end items-center space-x-4 max-w-full">
+       <nav class="flex-1 justify-start md:flex bg-base-100 space-x-6 p-5">
+        <div class="flex-1">
+        <p class="btn btn-ghost normal-case text-2xl">WorkoutPro</p>
+        <select id="theme-select" aria-label="Theme" title="Theme" class="bg-base-200 text-base-content font-semibold rounded-lg px-2 py-2 pr-1 cursor-pointer shadow-md hover:bg-base-300 focus:outline-none focus:ring-2 focus:ring-primary transition">
+         </select>
+        
+      </div>
+        
+        </nav>
+      </div>
+      
+   <div class="p-6 max-w-md mx-auto">    
+  <h1 class="text-3xl font-bold mb-6 text-center">Login</h1>
+  <div id="form" class="bg-gray-100 max-w-3xl p-10 rounded-box">
+  <form id="login-form" class="space-y-4">
+    <input id='email' name="email" type="email" placeholder="Email" class="input input-bordered w-full" required />
+    <input id='password' name="password" type="password" placeholder="Password" class="input input-bordered w-full" required />
+    <button type="submit" class="btn btn-outline btn-primary w-full">Login</button>
+    <div class="flex justify-between text-sm mt-4">
+    <a href="signup.html" class="btn btn-outline btn-primary w-1/2 normal-case" >Not signed yet ? Signup</a>
+    <a href="index.html" class="btn btn-outline btn-primary w-1/2 normal-case" >Home</a></div>
+  </form>
+  </div>
+  </div>
+  <script>
+    const htmlEl = document.documentElement;
+    const themeSelect = document.getElementById('theme-select');
+
+    // List of DaisyUI themes (default set)
+    // Source: https://daisyui.com/docs/themes/
+    const themes = [
+      'light',
+      'dark',
+      'cupcake',
+      'bumblebee',
+      'emerald',
+      'corporate',
+      'synthwave',
+      'retro',
+      'cyberpunk',
+      'valentine',
+      'halloween',
+      'garden',
+      'forest',
+      'aqua',
+      'lofi',
+      'pastel',
+      'fantasy',
+      'wireframe',
+      'black',
+      'luxury',
+      'dracula',
+      'cmyk',
+      'autumn',
+      'business',
+      'acid',
+      'lemonade',
+      'night',
+      'coffee',
+      'winter',
+    ];
+
+    // Populate the select with theme options
+    themes.forEach(theme => {
+      const option = document.createElement('option');
+      option.value = theme;
+      option.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
+      themeSelect.appendChild(option);
+    });
+
+    // Load saved theme or default
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+    themeSelect.value = savedTheme;
+
+    // Change theme on select change
+    themeSelect.addEventListener('change', e => {
+      setTheme(e.target.value);
+    });
+
+  function setTheme(theme) {
+htmlEl.setAttribute('data-theme', theme);
+localStorage.setItem('theme', theme);
+}
+</script>
+</body>
+</html>

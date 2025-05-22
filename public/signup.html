@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signup - WorkoutPro</title>
+   <script defer src="app.js"></script>
+  <script defer src="signup.js"></script>
+ <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+  tailwind.config = {
+    plugins: [daisyui],
+    daisyui: {
+      themes:full
+    },
+  }
+</script>
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet"/>
+</head>
+<body>
+  
+<div class="flex-1 flex justify-end items-center space-x-4 max-w-full">
+       <nav class="flex-1 justify-start md:flex bg-base-100 space-x-6 p-5">
+        <div class="flex-1">
+        <p class="btn btn-ghost normal-case text-2xl">WorkoutPro</p>
+        <select id="theme-select" aria-label="Theme" title="Theme" class="bg-base-200 text-base-content font-semibold rounded-lg px-2 py-2 pr-1 cursor-pointer shadow-md hover:bg-base-300 focus:outline-none focus:ring-2 focus:ring-primary transition">
+         </select>
+        
+      </div>
+        
+        </nav>
+      </div>
+      <div class="p-6 max-w-md mx-auto">
+  <h1 class="text-3xl font-bold mb-6 text-center">Signup</h1>
+   <div id="form" class="bg-gray-100 max-w-3xl p-10 rounded-box">
+  <form id="signup-form" class="space-y-4">
+    <input name="username" type="text" placeholder="Username" class="input input-bordered w-full" required />
+    <input name="email" type="email" placeholder="Email" class="input input-bordered w-full" required />
+    <input name="password" type="password" placeholder="Password" class="input input-bordered w-full" required />
+    <input name="confirmPassword" type="password" placeholder="Confirm Password" class="input input-bordered w-full" required />
+    <button type="submit" class="btn btn-outline btn-primary w-full">Sign Up</button>
+      <div class="flex justify-between text-sm mt-4">
+    <a href="login.html" class="btn btn-outline btn-primary w-1/2 normal-case" >Already signed up? Login</a>
+    <a href="index.html" class="btn btn-outline btn-primary w-1/2 normal-case" >Home</a></div>
+     
+  </form>
+   </div>
+  </div>
+</body>
+</html>

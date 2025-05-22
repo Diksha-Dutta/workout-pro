@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Schedule Planner</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.0/dist/full.css" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      plugins: [daisyui],
+      daisyui: { themes: true }
+    };
+  </script>
+</head>
+<body>
+   <nav class="navbar bg-base-100 shadow-md px-4">
+    <div class="flex justify-between items-center w-full max-w-7xl mx-auto">
+      <a class="btn btn-ghost normal-case text-2xl">WorkoutPro</a>
+      <a href="dashboard.html" class="btn btn-outline btn-primary">Back to Dashboard</a>
+    </div>
+  </nav>
+  <div class="max-w-xl mx-auto bg-base-200 p-6">
+    <h1 class="text-4xl font-bold text-center mb-6">📅 Workout Schedule Planner</h1>
+
+   
+    <div class="flex justify-between items-center mb-4">
+      <button onclick="changeMonth(-1)" class="btn btn-sm btn-outline">← Prev</button>
+      <h2 id="monthYear" class="text-xl font-semibold"></h2>
+      <button onclick="changeMonth(1)" class="btn btn-sm btn-outline">Next →</button>
+    </div>
+
+  
+    <div id="calendar" class="grid grid-cols-7 gap-2 text-center"></div>
+  
+
+  <div class="m-8 text-center">
+    <h3 class="text-lg font-semibold mb-1 text-center">Saved Tasks</h3>
+    <ul id="taskList" class="space-y-2"></ul>
+  </div>
+</div>
+  
+  <div id="taskModal" class="modal">
+    <div class="modal-box p-10 gap-5">
+      <h3 class="font-bold text-lg">Add Workout Task</h3>
+      <p class="py-2 text-sm text-gray-500" id="selectedDateDisplay"></p>
+      <input
+        type="text"
+        placeholder="Workout task (e.g., Upper body)"
+        id="taskInput"
+        class="input input-bordered w-full mb-4 p-3"
+        required
+      />
+      <div class="modal-action">
+        <button onclick="saveTask()" class="btn btn-primary text-center">Save</button>
+        <button onclick="closeModal()" class="btn text-center">Cancel</button>
+      </div>
+    </div>
+  </div>*/
+
+  <script>
+    
+    const calendar = document.getElementById("calendar");
+    const monthYearDisplay = document.getElementById("monthYear");
+    const taskModal = document.getElementById("taskModal");
+    const selectedDateDisplay = document.getElementById("selectedDateDisplay");
+    const taskInput = document.getElementById("taskInput");
+
+    let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
+    let selectedDate = null;
+    let tasks = []; // Cache tasks for the current month
+
+    // Load tasks for the current month
+    async function fetchTasksForMonth() {
+      try {
+        const res = await fetch(`/api/schedule?month=${currentYear}-${(currentMonth + 1).toString().padStart(2, "0")}`);
+        if (!res.ok) throw new Error("Failed to fetch tasks");
+        const data = await res.json();
+        return Array.isArray(data) ? data : [];
+      } catch (error) {
+        console.error("Failed to fetch tasks:", error);
+        alert("Failed to load tasks. Please try again.");
+        return [];
+      }
+    }
+
+    // Load the calendar grid with dates and tasks
+    async function loadCalendar() {
+      const firstDay = new Date(currentYear, currentMonth, 1);
+      const lastDay = new Date(currentYear, currentMonth + 1, 0);
+      const startDay = firstDay.getDay();
+
+      monthYearDisplay.textContent = `${firstDay.toLocaleString("default", { month: "long" })} ${currentYear}`;
+
+      // Fetch tasks for the month once
+      tasks = await fetchTasksForMonth();
+
+      calendar.innerHTML = "";
+      // Empty grid cells before first day
+      for (let i = 0; i < startDay; i++) {
+        calendar.innerHTML += `<div></div>`;
+      }
+
+      // Populate calendar with dates and tasks
+      for (let d = 1; d <= lastDay.getDate(); d++) {
+        const dateStr = `${currentYear}-${(currentMonth + 1).toString().padStart(2, "0")}-${d.toString().padStart(2, "0")}`;
+        const task = tasks.find(t => t.date === dateStr);
+
+        const btn = document.createElement("button");
+        btn.className = "p-3 bg-base-100 shadow rounded text-left hover:bg-primary hover:text-white transition";
+        btn.dataset.date = dateStr; // Store date for easy access
+        btn.innerHTML = `
+          <span class="font-semibold">${d}</span>
+          ${task ? `<p class="text-xs mt-1 text-green-600">${task.task}</p>` : ""}
+        `;
+        btn.onclick = () => openModal(dateStr);
+        calendar.appendChild(btn);
+      }
+
+      loadTaskList();
+    }
+
+    // Load all tasks for the current month into the task list
+    function loadTaskList() {
+      const taskList = document.getElementById("taskList");
+      taskList.innerHTML = "";
+
+      tasks.forEach(({ date, task, completed }) => {
+        const li = document.createElement("li");
+        li.className = "bg-base-100 p-3 rounded shadow flex justify-between items-center";
+        li.dataset.date = date; // Store date for easy access
+
+        const taskStyle = completed ? "line-through text-gray-400" : "";
+
+        li.innerHTML = `
+          <div>
+            <p class="font-semibold">${date}</p>
+            <p class="text-sm ${taskStyle}">${task}</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="toggleDone('${date}', ${completed})" class="btn btn-sm btn-warning">${completed ? 'Undo' : 'Done'}</button>
+            <button onclick="deleteTask('${date}')" class="btn btn-sm btn-error text-white">Delete</button>
+          </div>
+        `;
+
+        taskList.appendChild(li);
+      });
+    }
+
+    // Update a specific date's button in the calendar
+    function updateCalendarDate(dateStr, taskData) {
+      const button = Array.from(calendar.children).find(btn => btn.dataset.date === dateStr);
+      if (button) {
+        button.innerHTML = `
+          <span class="font-semibold">${parseInt(dateStr.split('-')[2])}</span>
+          ${taskData ? `<p class="text-xs mt-1 text-green-600">${taskData.task}</p>` : ""}
+        `;
+        button.onclick = () => openModal(dateStr);
+      }
+    }
+
+    // Toggle completion state of a task
+    async function toggleDone(date, currentCompleted) {
+      console.log(`Toggling done for date: ${date}, currentCompleted: ${currentCompleted}`);
+      try {
+        const res = await fetch("/api/schedule/completed", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ date, completed: !currentCompleted }),
+        });
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.error || "Failed to toggle task status");
+        }
+        const updatedTask = await res.json();
+        
+        // Update the local tasks cache
+        const taskIndex = tasks.findIndex(t => t.date === date);
+        if (taskIndex !== -1) {
+          tasks[taskIndex] = updatedTask;
+        }
+        
+        // Update the UI selectively
+        updateCalendarDate(date, updatedTask);
+        loadTaskList();
+      } catch (error) {
+        console.error("Failed to toggle done:", error);
+        alert(`Failed to toggle task status: ${error.message}`);
+      }
+    }
+
+    // Delete a task for a date
+    async function deleteTask(date) {
+      if (!confirm(`Delete task for ${date}?`)) return;
+      console.log(`Deleting task for date: ${date}`);
+      try {
+        const res = await fetch("/api/schedule", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ date }),
+        });
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.error || "Failed to delete task");
+        }
+        
+        // Update the local tasks cache
+        tasks = tasks.filter(t => t.date !== date);
+        
+        // Update the UI selectively
+        updateCalendarDate(date, null);
+        loadTaskList();
+      } catch (error) {
+        console.error("Failed to delete task:", error);
+        alert(`Failed to delete task: ${error.message}`);
+      }
+    }
+
+    // Open modal with date info
+    function openModal(dateStr) {
+      console.log("Opening modal for date:", dateStr);
+      selectedDate = dateStr;
+      selectedDateDisplay.textContent = `Date: ${dateStr}`;
+      taskInput.value = "";
+      taskModal.classList.add("modal-open");
+    }
+
+    // Close modal
+    function closeModal() {
+      taskModal.classList.remove("modal-open");
+    }
+
+    // Save new task from modal
+    async function saveTask() {
+      if (!selectedDate) return alert("No date selected");
+      const task = taskInput.value.trim();
+      if (!task) return alert("Please enter a task");
+
+      try {
+        const res = await fetch("/api/schedule", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ date: selectedDate, task }),
+        });
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.error || "Failed to save task");
+        }
+        const newTask = await res.json();
+        
+        // Update the local tasks cache
+        const taskIndex = tasks.findIndex(t => t.date === selectedDate);
+        if (taskIndex !== -1) {
+          tasks[taskIndex] = newTask;
+        } else {
+          tasks.push(newTask);
+        }
+        
+        // Update the UI selectively
+        updateCalendarDate(selectedDate, newTask);
+        loadTaskList();
+        closeModal();
+      } catch (err) {
+        console.error("Failed to save task:", err);
+        alert(`Failed to save task: ${err.message}`);
+      }
+    }
+
+    // Change calendar month view
+    function changeMonth(offset) {
+      currentMonth += offset;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      } else if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      loadCalendar();
+    }
+
+    // Initial calendar load
+    loadCalendar();
+  </script>
+</body>
+</html>

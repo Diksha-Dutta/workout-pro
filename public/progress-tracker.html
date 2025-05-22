@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Workout Progress Tracker</title>
+  <script defer src="app.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" />
+</head>
+<body>
+   <nav class="navbar bg-base-100 shadow-md px-4">
+    <div class="flex justify-between items-center w-full max-w-7xl mx-auto">
+      <a class="btn btn-ghost normal-case text-2xl">WorkoutPro</a>
+      <a href="dashboard.html" class="btn btn-outline btn-primary">Back to Dashboard</a>
+    </div>
+  </nav>
+  <div class="max-w-3xl mx-auto bg-base-200 p-6">
+    <h1 class="text-3xl font-bold mb-6">Weekly Progress Tracker</h1>
+
+    <!-- Grid for 7 days -->
+    <div id="progressGrid" class="grid grid-cols-7 gap-4 mb-6"></div>
+ 
+    <div class="flex justify-center mb-6">
+      <button id="submitProgress" class="btn btn-primary">Submit Progress</button>
+    </div>
+
+    <!-- Weekly Report -->
+    <div class="card bg-base-100 shadow p-4">
+      <h2 class="text-xl font-semibold mb-2">Weekly Report</h2>
+      <p id="weeklyReport">Loading...</p>
+    </div>
+  </div>
+
+  <script>
+    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const progressGrid = document.getElementById("progressGrid");
+    const weeklyReport = document.getElementById("weeklyReport");
+
+    // State array to track completed days (index 0 = Sunday, 6 = Saturday)
+    let progress = [false, false, false, false, false, false, false];
+
+    // Placeholder for getCurrentUserId (since it's not defined)
+    function getCurrentUserId() {
+      // This is a placeholder; in a real app, you'd get the user ID from auth
+      return "user123";
+    }
+
+    // Load progress from backend API
+   // Load progress from backend API
+async function loadProgress() {
+  try {
+    const userId = getCurrentUserId(); 
+    const res = await fetch(`/api/progress?userId=${userId}`);
+   
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.weeklyProgress && data.weekStart) {
+        progress = data.weeklyProgress;
+        const weekStart = new Date(data.weekStart);
+        const today = new Date();
+        const daysSinceWeekStart = Math.floor((today - weekStart) / (1000 * 60 * 60 * 24));
+        // If more than 7 days have passed since weekStart, reset progress
+        if (daysSinceWeekStart >= 7) {
+          progress = [false, false, false, false, false, false, false];
+          await fetch("/api/progress", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId, weeklyProgress: progress, weekStart: getWeekStart() }),
+          });
+        }
+      }
+    }
+  } catch (e) {
+    console.error("Failed to load progress:", e);
+  }
+  renderGrid();
+  renderReport();
+}
+
+// Helper function to calculate the start of the current week (Sunday)
+function getWeekStart() {
+  const today = new Date();
+  const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+  const daysSinceSunday = dayOfWeek;
+  const weekStart = new Date(today);
+  weekStart.setDate(today.getDate() - daysSinceSunday);
+  weekStart.setHours(0, 0, 0, 0);
+  return weekStart;
+}
+    // Save progress to backend API
+    async function saveProgress() {
+      const userId = getCurrentUserId();
+      console.log("Saving progress for user:", userId);
+      try {
+        const res = await fetch("/api/progress", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId, weeklyProgress: progress }),
+        });
+        if (!res.ok) {
+          console.error('Failed to save progress:', res.status);
+        }
+      } catch (e) {
+        console.error("Error saving progress:", e);
+      }
+      renderReport();
+    }
+
+    // Render the progress grid with checkboxes for each day
+    function renderGrid() {
+      progressGrid.innerHTML = "";
+      daysOfWeek.forEach((day, idx) => {
+        const dayBox = document.createElement("label");
+        dayBox.className = "cursor-pointer flex flex-col items-center bg-base-100 p-3 rounded shadow";
+
+        dayBox.innerHTML = `
+          <span class="font-semibold mb-2">${day}</span>
+          <input type="checkbox" class="checkbox checkbox-primary" ${progress[idx] ? "checked" : ""} />
+        `;
+
+        const checkbox = dayBox.querySelector("input");
+        checkbox.addEventListener("change", () => {
+          progress[idx] = checkbox.checked;
+          // Removed saveProgress() here so save happens only on button click
+        });
+
+        progressGrid.appendChild(dayBox);
+      });
+    }
+
+    // Render the weekly report with percentage of completed days
+    function renderReport() {
+      const completedDays = progress.filter(day => day).length;
+      const totalDays = progress.length;
+      const percentage = Math.round((completedDays / totalDays) * 100);
+      weeklyReport.textContent = `You completed ${completedDays} out of ${totalDays} days this week (${percentage}%).`;
+    }
+
+    // Add event listener for the Submit button
+    const submitBtn = document.getElementById('submitProgress');
+    submitBtn.addEventListener('click', () => {
+      saveProgress();
+    });
+
+    // Load progress and render grid + report initially
+    loadProgress();
+  </script>
+</body>
+</html>

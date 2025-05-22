@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buy Product - WorkoutPro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" />
+</head>
+<body class="bg-base-200 text-base-content min-h-screen">
+  <nav class="navbar bg-base-100 shadow-md px-4">
+    <div class="flex justify-between items-center w-full mx-auto">
+      <a class="btn btn-ghost normal-case text-2xl" href="product-range.html">WorkoutPro</a>
+      <div class="space-x-2">
+        <a href="cart.html" class="btn btn-outline btn-secondary">
+          🛒 Cart <span id="cart-count" class="badge badge-secondary ml-2">0</span>
+        </a>
+        <a href="orders.html" class="btn btn-outline btn-info">Orders</a>
+        <a href="dashboard.html" class="btn btn-outline btn-primary">Back to Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="p-8 max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold text-center mb-10">Complete Your Purchase</h1>
+    <div id="product-details" class="card bg-base-100 shadow-lg p-6 mb-6">
+      <h2 class="text-2xl font-bold mb-4">Product Details</h2>
+      <ul id="product-list" class="space-y-4"></ul>
+      <p class="mt-4 text-lg font-semibold">Total: ₹<span id="product-total">0</span></p>
+    </div>
+    <div class="card bg-base-100 shadow-lg p-6">
+      <h2 class="text-2xl font-bold mb-4">Shipping Information</h2>
+      <div class="space-y-4">
+        <label class="block">
+          <span class="block font-medium mb-1">Full Name</span>
+          <input type="text" id="full-name" class="input input-bordered w-full" required />
+        </label>
+        <label class="block">
+          <span class="block font-medium mb-1">Address</span>
+          <input type="text" id="address" class="input input-bordered w-full" required />
+        </label>
+        <label class="block">
+          <span class="block font-medium mb-1">Phone</span>
+          <input type="tel" id="phone" class="input input-bordered w-full" required />
+        </label>
+      </div>
+      <button id="confirm-order" class="btn btn-primary w-full mt-6">Confirm Order</button>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+  const productList = document.getElementById('product-list');
+  const productTotal = document.getElementById('product-total');
+  const confirmOrderBtn = document.getElementById('confirm-order');
+  const cartCount = document.getElementById('cart-count');
+
+  // Load cart count
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cartCount.textContent = cart.length;
+
+  // Get URL parameters
+  const params = new URLSearchParams(window.location.search);
+  const isCartCheckout = params.get('cartCheckout') === 'true';
+
+  let items = [];
+
+  if (isCartCheckout) {
+    // Load all items from cart
+    items = cart;
+  } else {
+    // Load single item from URL parameters
+    const product = {
+      name: params.get('name'),
+      price: parseFloat(params.get('price')) || 0,
+      size: params.get('size') || null,
+      color: params.get('color') || null,
+      flavour: params.get('flavour') || null,
+    };
+    items = [product];
+  }
+
+  // Display items
+  let total = 0;
+  productList.innerHTML = '';
+  items.forEach(item => {
+    const li = document.createElement('li');
+    let options = [];
+    if (item.size) options.push(`Size: ${item.size}`);
+    if (item.color) options.push(`Color: ${item.color}`);
+    if (item.flavour) options.push(`Flavour: ${item.flavour}`);
+    li.innerHTML = `
+      <span>${item.name} (${options.join(', ') || 'No options'}) - ₹${item.price}</span>
+    `;
+    productList.appendChild(li);
+    total += parseFloat(item.price);
+  });
+  productTotal.textContent = total.toFixed(2);
+
+  // Confirm order
+  confirmOrderBtn.addEventListener('click', () => {
+    const fullName = document.getElementById('full-name').value;
+    const address = document.getElementById('address').value;
+    const phone = document.getElementById('phone').value;
+
+    if (!fullName || !address || !phone) {
+      alert('Please fill in all shipping details.');
+      return;
+    }
+
+    const order = {
+      id: Date.now(),
+      products: items, // Store all items
+      shipping: { fullName, address, phone },
+      date: new Date().toLocaleString(),
+      total: total.toFixed(2),
+    };
+
+    // Save order to localStorage
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    orders.push(order);
+    localStorage.setItem('orders', JSON.stringify(orders));
+
+    // Clear cart if coming from cart checkout
+    if (isCartCheckout) {
+      localStorage.setItem('cart', JSON.stringify([]));
+    }
+
+    // Redirect to orders page
+    alert('Order placed successfully!');
+    window.location.href = 'orders.html';
+  });
+});
+  </script>
+</body>
+</html>

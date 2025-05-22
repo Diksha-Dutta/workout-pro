@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Workout Website</title>
+  <script defer src="app.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+   <script>
+    tailwind.config = {
+      plugins: [daisyui],
+      daisyui: {
+       themes: true 
+      }
+    }
+  </script>
+
+
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" />
+
+</head>
+<body class="w-7xl mx-auto text-lg font-sans overflow-x-hidden">
+
+
+  <div class="navbar bg-base-100 shadow-md px-4">
+    <div class="flex justify-between items-center w-full w-7xl mx-auto">
+     
+      <div class="flex-1">
+         
+        <a class="btn btn-ghost normal-case text-2xl">WorkoutPro</a>
+        <select id="theme-select" aria-label="Theme" title="Theme" class="bg-base-200 text-base-content font-semibold rounded-lg px-2 py-2 pr-1 cursor-pointer shadow-md hover:bg-base-300 focus:outline-none focus:ring-2 focus:ring-primary transition">
+         </select>
+        
+      </div>
+
+  
+      <nav class="flex-1 justify-center hidden md:flex space-x-6">
+        <a href="#home" class="btn btn-ghost normal-case text-2xl">Home</a>
+        <a href="#about" class="btn btn-ghost normal-case text-2xl">About</a>
+        <a href="#features" class="btn btn-ghost normal-case text-2xl">Features</a>
+        <a href="#contact" class="btn btn-ghost normal-case text-2xl">Contact</a>
+        </nav>
+     
+    
+      <div class="flex-1 flex justify-end items-center space-x-4 ">        
+       <button id="logoutBtn" class="btn btn-outline btn-error btn-md text-2xl rounded-lg hover:bg-red-500 rounded hidden">
+  Logout
+</button>
+      </div>
+    </div>
+  </div>
+ <div id="greeting-container" class="text-5xl font-bold mb-4 text-center pt-2 hidden">
+      <h2 id="greeting" class="text-2xl font-bold mb-4"></h2>
+      <a href="dashboard.html" id="dashboardBtn" class="btn btn-outline hidden">Dashboard</a>
+      </div>
+
+  <!-- Hero Section -->
+  <section id="home" class="bg-gradient-to-r from-yellow-400 to-green-600 min-h-[50vh] flex flex-col justify-center items-center text-white text-center px-6">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4 max-w-3xl">
+      Get Fit, Stay Healthy
+    </h1>
+    <p class="text-lg md:text-xl max-w-2xl mb-6 ">
+      Personalized workouts and plans to achieve your fitness goals.
+    </p>  
+      <a href="signup.html" class="btn btn-soft btn-neutral btn-md rounded-lg text-bold">Get Started</a>  
+  </section>
+
+  <!-- About Us -->
+  <section id="about" class="py-16 px-6 w-full mx-auto pb-0 ">
+    <h2 class="text-4xl font-bold mb-6 text-center">About Us</h2>
+    <p class="text-center max-w-6xl mx-auto text-lg leading-relaxed">
+      WorkoutPro is dedicated to helping you reach your fitness goals with personalized workout plans,
+      expert advice, and a supportive community. Whether you're a beginner or a pro, we have something for you.
+      <br>
+       We are committed to helping you reach your fitness goals. 
+       Explore our curated selection of top-tier products, including workout clothing, supplements, and home gym equipment.
+    </p>
+
+ 
+<section class="about-us py-20">
+  <h2 class="text-3xl font-bold text-center mb-8">Our Products</h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+    
+    <div class="card bg-base-100 w-80 shadow-sm flex flex-col">
+      <figure class="bg-gray-100 p-4">
+        <img class="w-full h-full object-cover"
+          src="sport-clothes.png"
+          alt="Exercise Clothing" />
+      </figure>
+      <div class="card-body flex-1 flex flex-col justify-between">
+        <h2 class="card-title justify-center">Performance Apparel</h2>
+        <p class="text-center">High quality, breathable fabrics designed to keep you comfortable during workouts.</p>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 w-80 shadow-sm flex flex-col">
+      <figure class=" bg-gray-100 p-4">
+        <img class="w-full h-full object-cover"
+          src="vitamins.png"
+          alt="Supplements" />
+      </figure>
+      <div class="card-body flex-1 flex flex-col justify-between">
+        <h2 class="card-title justify-center">Vitality Supplements</h2>
+        <p class="text-center">Natural and effective supplements to boost your fitness and recovery.</p>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 w-80 shadow-sm flex flex-col">
+      <figure class="bg-gray-100 p-4">
+        <img class="w-full h-full object-cover"
+          src="weightlifting.png"
+          alt="Exercise Machines" />
+      </figure>
+      <div class="card-body flex-1 flex flex-col justify-between">
+        <h2 class="card-title justify-center">ProFit Machines</h2>
+        <p class="text-center">Durable and innovative machines to support every kind of workout routine.</p>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 w-80 shadow-sm flex flex-col">
+      <figure class="bg-gray-100 p-4">
+        <img class="w-full h-full object-cover"
+          src="report.png"
+          alt="Recovery" />
+      </figure>
+      <div class="card-body flex-1 flex flex-col justify-between">
+        <h2 class="card-title justify-center">Recovery & Wellness</h2>
+        <p class="text-center">Products and tools to help you recover faster and maintain overall health and wellness.</p>
+      </div>
+    </div>
+  </div>
+</section>
+  </section>
+
+
+
+<section id="features" class="py-16 bg-base-100 px-6 max-w-[1050px] mx-auto items-center pt-0">
+  <h2 class="text-4xl font-bold mb-10 text-center">Features</h2>
+
+ 
+  <div class="carousel rounded-box space-x-4 w-full overflow-x-auto snap-x snap-mandatory scroll-smooth">
+    <div class="carousel-item w-80 h-72 ">
+      <div class="card bg-primary text-primary-content shadow-xl p-6 rounded-lg w-full transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+        <div class="text-4xl mb-4 flex items-center justify-center h-16">💪</div>
+        <h3 class="text-xl font-semibold mb-2 text-center pt-10">Personalized Plans</h3>
+        <p class="text-center">Create workout plans tailored just for you.</p>
+      </div>
+    </div>
+  
+
+    <div class="carousel-item w-80 h-72">
+      <div class="card bg-secondary text-secondary-content shadow-xl p-6 rounded-lg w-full transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+        <div class="text-4xl mb-4 flex items-center justify-center h-16">📊</div>
+        <h3 class="text-xl font-semibold mb-2 text-center pt-10">Progress Tracking</h3>
+        <p class="text-center">Track your workouts and see your improvement over time.</p>
+      </div>
+    </div>
+
+    <div class="carousel-item w-80 h-72">
+      <div class="card bg-accent text-accent-content shadow-xl p-6 rounded-lg w-full transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+        <div class="text-4xl mb-4 flex items-center justify-center h-16">🧘‍♂️</div>
+        <h3 class="text-xl font-semibold mb-2 text-center pt-10">Guided Workouts</h3>
+        <p class="text-center">Follow step-by-step workout videos from experts.</p>
+      </div>
+    </div>
+
+    <div class="carousel-item w-80 h-72">
+      <div class="card bg-info text-info-content shadow-xl p-6 rounded-lg w-full transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+        <div class="text-4xl mb-4 flex items-center justify-center h-16">📅</div>
+        <h3 class="text-xl font-semibold mb-2 text-center pt-10">Schedule Planner</h3>
+        <p class="text-center">Plan your workout days and rest days efficiently.</p>
+      </div>
+    </div>
+
+    <div class="carousel-item w-80 h-72">
+      <div class="card bg-success text-success-content shadow-xl p-6 rounded-lg w-full transform transition duration-300 hover:scale-105 hover:shadow-2xl ">
+        <div class="text-4xl mb-4 flex items-center justify-center h-16">💬</div>
+        <h3 class="text-xl font-semibold mb-2 text-center pt-10">Community Support</h3>
+        <p class="text-center">Join a community to stay motivated and share progress.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Reviews -->
+  <section id="reviews" class="py-16 px-6 max-w-6xl mx-auto bg-base-200 rounded-lg shadow-lg">
+    <h2 class="text-4xl font-bold mb-10 text-center">What Our Users Say</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <div class="card bg-white p-6 rounded-lg shadow-md">
+        <p class="mb-4 italic">"WorkoutPro changed my life! The personalized plans keep me on track."</p>
+        <div class="font-bold">— Sarah K.</div>
+      </div>
+
+      <div class="card bg-white p-6 rounded-lg shadow-md">
+        <p class="mb-4 italic">"The progress tracking motivates me to push harder every day."</p>
+        <div class="font-bold">— Mike R.</div>
+      </div>
+
+      <div class="card bg-white p-6 rounded-lg shadow-md">
+        <p class="mb-4 italic">"I love the community support — it keeps me accountable."</p>
+        <div class="font-bold">— Emily T.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Contact Us -->
+  <section id="contact" class="py-16 px-6 max-w-4xl mx-auto">
+    <h2 class="text-4xl font-bold mb-6 text-center">Contact Us</h2>
+    <form class="max-w-xl mx-auto space-y-6" id="contact-form">
+      <input type="text" placeholder="Name" class="input input-bordered w-full" required />
+      <input type="email" placeholder="Email" class="input input-bordered w-full" required />
+      <textarea placeholder="Message" class="textarea textarea-bordered w-full" required></textarea>
+      <button type="submit" class="btn btn-primary w-full">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer p-10 bg-base-300 text-base-content mt-16 ">
+    <div class="container max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8">
+      <div class="flex flex-col">
+      <span class="footer-title  ">WorkoutPro</span>
+      <br>
+      <p>Your fitness partner for life.</p>
+    </div>
+    <div class="flex flex-col">
+      <span class="footer-title">Social</span>
+      <a class="link link-hover" href="#">Twitter</a>
+      <a class="link link-hover" href="#">Facebook</a>
+      <a class="link link-hover" href="#">Instagram</a>
+    </div>
+    <div class="flex flex-col">
+      <span class="footer-title">Legal</span>
+      <a class="link link-hover" href="#">Privacy policy</a>
+      <a class="link link-hover" href="#">Terms of use</a>
+    </div>
+    </div>
+  </footer>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const isLoggedIn = localStorage.getItem('loggedInUser');
+    const greetingEl = document.getElementById('greeting');
+    const greetingContainer = document.getElementById('greeting-container');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const dashboardBtn=document.getElementById('dashboardBtn');
+
+    if (isLoggedIn) {
+    greetingEl.textContent = `Welcome! Visit Dashboard to personalise features accoridng to your preference.`;
+    greetingContainer.classList.remove('hidden'); 
+    logoutBtn.classList.remove('hidden');
+    dashboardBtn.classList.remove('hidden');
+  } else {
+    greetingEl.textContent = '';
+    greetingContainer.classList.add('hidden'); 
+    logoutBtn.classList.add('hidden');
+    dashboardBtn.classList.add('hidden');
+  }
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('loggedInUser');
+      window.location.reload(); 
+    });
+  });
+
+  document.getElementById("contact-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  alert("Thanks for contacting us! We'll get back to you soon.");
+  e.target.reset();
+});
+
+
+ document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('a[href^="#item"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        target?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      });
+    });
+  });
+
+</script>
+
+ 
+
+</body> 
+</html>
